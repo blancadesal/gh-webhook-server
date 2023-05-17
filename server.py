@@ -18,7 +18,7 @@ def verify_signature(request: Request, body: bytes, signature: str | None):
 
     return True
 
-@app.post("/webhook/")
+@app.post("/webhook")
 async def handle_webhook(request: Request, verified: bool = Depends(verify_signature)):
     payload = await request.json()
 
