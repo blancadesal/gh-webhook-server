@@ -1,6 +1,7 @@
 import hashlib
 import hmac
 import os
+import subprocess
 
 from fastapi import Depends, FastAPI, HTTPException, Request
 
@@ -32,7 +33,16 @@ def verify_signature(payload_body: bytes = Depends(get_payload_body),
 async def handle_webhook(request: Request, verified: bool = Depends(verify_signature)):
     payload = await request.json()
 
-    # Print the entire payload
-    print(payload['ref'])
+    ref = payload.get('ref', '')
+
+    if ref == 'refs/heads/main':
+        process = subprocess.Popen(['bash', '/app/deploy.sh'])
+        stdout, stderr = process.communicate()
+
+        if process.returncode != 0:
+            return {"status": "failed", "error": stderr}
+
+    else:
+        print(f"Push was to {ref}, not deploying")
 
     return {"message": "success"}
