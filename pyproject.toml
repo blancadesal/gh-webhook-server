@@ -1,0 +1,18 @@
+[project]
+name = "gh-webhook-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi[standard]>=0.115.0",
+    "uvicorn>=0.31.0",
+]
+
+[tool.ruff.lint]
+extend-select = ["I"]
+
+[tool.uv]
+dev-dependencies = [
+    "pre-commit>=3.8.0",
+]
