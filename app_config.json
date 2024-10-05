@@ -1,0 +1,4 @@
+{
+	"app1": "/path/to/app1/deploy.sh",
+	"app2": "/path/to/app2/deploy.sh"
+  }
